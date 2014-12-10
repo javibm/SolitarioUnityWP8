@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardGame", "CardGame\CardGame.csproj", "{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Master|ARM = Master|ARM
+		Master|x86 = Master|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|ARM.Build.0 = Debug|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|ARM.Deploy.0 = Debug|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|x86.ActiveCfg = Debug|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|x86.Build.0 = Debug|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Debug|x86.Deploy.0 = Debug|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|ARM.ActiveCfg = Master|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|ARM.Build.0 = Master|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|ARM.Deploy.0 = Master|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|x86.ActiveCfg = Master|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|x86.Build.0 = Master|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Master|x86.Deploy.0 = Master|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|ARM.ActiveCfg = Release|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|ARM.Build.0 = Release|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|ARM.Deploy.0 = Release|ARM
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|x86.ActiveCfg = Release|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|x86.Build.0 = Release|x86
+		{F9FAB0B4-0BCF-4776-8FD0-311DE7A93EEA}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
