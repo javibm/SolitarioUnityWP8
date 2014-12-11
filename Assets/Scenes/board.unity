@@ -250,6 +250,61 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5af3119033b10af4e9e0e716f33e4718, type: 3}
   - {fileID: 21300000, guid: 687bdac3303701e489cecab446fea2a2, type: 3}
   - {fileID: 21300000, guid: e92534f7d13c0844988cea9e942edb2a, type: 3}
+  cartasNegras:
+  - {fileID: 21300000, guid: cb118430b332d79409e25b21b6b7878e, type: 3}
+  - {fileID: 21300000, guid: 6eb0ac72ef54ed141ab688aeedc75f51, type: 3}
+  - {fileID: 21300000, guid: 0c35f765114c02441a74c0b95b6a22f7, type: 3}
+  - {fileID: 21300000, guid: 3e9d1215a2a1f684cb06f68940a8c96a, type: 3}
+  - {fileID: 21300000, guid: 52bf1450ad1e05c4cb708ca7b764dead, type: 3}
+  - {fileID: 21300000, guid: 934dfc62873b88643ab2ebeaa0f28c6f, type: 3}
+  - {fileID: 21300000, guid: 6827b74eae6bb4c4cb10b8ee3f86a3af, type: 3}
+  - {fileID: 21300000, guid: a1f2235ca37ceb34193982212323860a, type: 3}
+  - {fileID: 21300000, guid: 39dd6f40652586247be6ef7c6bfc47f4, type: 3}
+  - {fileID: 21300000, guid: f4e3a38bd4b0de14c9a8073b1dca8969, type: 3}
+  - {fileID: 21300000, guid: 140c8e94562c816479d5d6e6b99d910c, type: 3}
+  - {fileID: 21300000, guid: 01f7070d24dc22c40bc3717142b27c43, type: 3}
+  - {fileID: 21300000, guid: 33c7837afde6a2a429fa858ad96cf97b, type: 3}
+  - {fileID: 21300000, guid: 595d3a80ad4d48346b36cbae30112b0c, type: 3}
+  - {fileID: 21300000, guid: 3305ab21dcb74964eaae7dcca05aab48, type: 3}
+  - {fileID: 21300000, guid: c435d4a49fc29df41ab6b0efe369446a, type: 3}
+  - {fileID: 21300000, guid: 60041ded2f618574da6a4f9a19bcf926, type: 3}
+  - {fileID: 21300000, guid: 0aa74af466aefe147a523c27fb149eb2, type: 3}
+  - {fileID: 21300000, guid: d1aa05eea644c174e910e3b777aeb8e1, type: 3}
+  - {fileID: 21300000, guid: e9192c2a4c62bae408e5610ffca37e9c, type: 3}
+  - {fileID: 21300000, guid: 4f2b234db09cbac4b872f3e3e43446a0, type: 3}
+  - {fileID: 21300000, guid: 787c5e12555a6d94ea75f688b67b34dc, type: 3}
+  - {fileID: 21300000, guid: 127a53d8fcbe4f747bee577fafb9fc2e, type: 3}
+  - {fileID: 21300000, guid: 5af3119033b10af4e9e0e716f33e4718, type: 3}
+  - {fileID: 21300000, guid: e92534f7d13c0844988cea9e942edb2a, type: 3}
+  - {fileID: 21300000, guid: 687bdac3303701e489cecab446fea2a2, type: 3}
+  cartasRojas:
+  - {fileID: 21300000, guid: 7824009866d85264b82ade4ce139cf3f, type: 3}
+  - {fileID: 21300000, guid: 8600a01040b6dc44fa039a166d95c3fa, type: 3}
+  - {fileID: 21300000, guid: 0325a6a923e4ad84e8073571734c2106, type: 3}
+  - {fileID: 21300000, guid: 0d223d69c74cc7d4494e9c2d92fa70d1, type: 3}
+  - {fileID: 21300000, guid: 778a4e58040c68441b406f849587d1b2, type: 3}
+  - {fileID: 21300000, guid: bb945dd891f812a4cb88a7fb8b7c6a0f, type: 3}
+  - {fileID: 21300000, guid: 32ce4cfaab992cc42813a5e3fa680884, type: 3}
+  - {fileID: 21300000, guid: ef34d02f670d16946b71914436762294, type: 3}
+  - {fileID: 21300000, guid: 16d4ce1de543cb3478dd93b27a57f786, type: 3}
+  - {fileID: 21300000, guid: 9e77337c0292b4d49ab5ed4a4efdb5a0, type: 3}
+  - {fileID: 21300000, guid: c71106b98461d67429f4faecc485705e, type: 3}
+  - {fileID: 21300000, guid: cb259ff4fd9d11c4e893a3124d0f5dc1, type: 3}
+  - {fileID: 21300000, guid: 4dbb5cf9a2a25ef49a558af0d8ca7da1, type: 3}
+  - {fileID: 21300000, guid: 357fbfbf4203cc04584c43e97c1fa904, type: 3}
+  - {fileID: 21300000, guid: 65e8c0e932e6a4f43b878cf9bcd7e759, type: 3}
+  - {fileID: 21300000, guid: 949bc9842cd41ec4dbd1ac2630177c06, type: 3}
+  - {fileID: 21300000, guid: b74307d0ff5319040955ceefdecc92f0, type: 3}
+  - {fileID: 21300000, guid: b0eb7fdb08bfbbf43bd88946e04f0aa3, type: 3}
+  - {fileID: 21300000, guid: 81b443f0af80c13438c5c2cfa8878526, type: 3}
+  - {fileID: 21300000, guid: 537ec3bd3c06eae40854de5a2c473dee, type: 3}
+  - {fileID: 21300000, guid: 65fc6b12b8882e944ab5c3117fa12af0, type: 3}
+  - {fileID: 21300000, guid: 49a50f39403171541a0ae1e1919294f4, type: 3}
+  - {fileID: 21300000, guid: d41d311c9df15c04b80d70078e408ada, type: 3}
+  - {fileID: 21300000, guid: e57beab3287981549b2f25be571c22de, type: 3}
+  - {fileID: 21300000, guid: e4f0c54fbe4325c48b59758bea27fcd7, type: 3}
+  - {fileID: 21300000, guid: 92e9a802caf742240ab60bc3354f7d35, type: 3}
+  numerosCartas: 0100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d000000
 --- !u!4 &1376773786
 Transform:
   m_ObjectHideFlags: 0

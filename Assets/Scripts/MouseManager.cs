@@ -19,6 +19,8 @@ public class MouseManager : MonoBehaviour {
 	public Vector2 septimoMonton;
 
 	public List<Sprite> posiblesCartas = new List<Sprite>();
+	public Sprite[] cartasNegras;
+	public Sprite[] cartasRojas;
 
 	//Variables privadas
 	List<GameObject> cartas = new List<GameObject>();
@@ -58,6 +60,8 @@ public class MouseManager : MonoBehaviour {
 	float lastClickTime = 0.0f;
 	float catchTime = 0.25f;
 	int zMazo = 0;
+	int montonOrigen = 0;
+	int montonDestino = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -128,7 +132,6 @@ public class MouseManager : MonoBehaviour {
 			Vector2 dir = Vector2.zero;
 			RaycastHit2D hit = Physics2D.Raycast(mouse2dPos, dir);
 			if(hit.collider != null){
-				Debug.Log(hit.collider.gameObject.name);
 				if(Time.time - lastClickTime < catchTime && hit.collider.gameObject.tag != "dorso" ){
 					if(hit.collider.gameObject.name.Contains("SpadesA") && !picas[0]){
 						siguientePica(hit.collider.gameObject, 0);
@@ -302,6 +305,7 @@ public class MouseManager : MonoBehaviour {
 
 						} 
 						else {
+							Debug.Log("Indice: " + indiceCartaASacar + " Longitud: " + cartas.Count);
 							cartas[indiceCartaASacar].SetActive(true);
 							indiceCartaASacar--;
 							zMazo--;
@@ -325,42 +329,49 @@ public class MouseManager : MonoBehaviour {
 					}
 					if(hit.collider.gameObject.tag.Equals("monton1")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 0;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton1" && sePuedePulsar(0)){
 						vueltaMonton(hit.collider.gameObject, 0);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton2")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 1;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton2" && sePuedePulsar(1)){
 						vueltaMonton(hit.collider.gameObject, 1);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton3")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 2;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton3" && sePuedePulsar(2)){
 						vueltaMonton(hit.collider.gameObject, 2);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton4")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 3;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton4" && sePuedePulsar(3)){
 						vueltaMonton(hit.collider.gameObject, 3);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton5")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 4;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton5" && sePuedePulsar(4)){
 						vueltaMonton(hit.collider.gameObject, 4);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton6")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 5;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton6" && sePuedePulsar(5)){
 						vueltaMonton(hit.collider.gameObject, 5);
 					}
 					if(hit.collider.gameObject.tag.Equals("monton7")){
 						cartaCogida = hit.collider.gameObject;
+						montonOrigen = 6;
 					}
 					if(hit.collider.gameObject.tag == "dorsoMonton7" && sePuedePulsar(6)){
 						vueltaMonton(hit.collider.gameObject, 6);
@@ -383,77 +394,116 @@ public class MouseManager : MonoBehaviour {
 		} 
 
 		if (Input.GetMouseButtonUp(0) && cartaCogida != null) {
-			if(cartaCogida.tag.Equals("carta")){
-				cartaCogida.transform.position = new Vector3(posicionMazo.x, posicionMazo.y, zMazo);
-				cartaCogida = null;
+			
+			Vector3 mouseWorld3d = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Vector2 mouse2dPos = new Vector2(mouseWorld3d.x, mouseWorld3d.y);
+			GameObject cartaDestino;
+			List<GameObject> montonAuxiliar = queMontonHay(mouse2dPos);
+			if(montonAuxiliar != null){
+				cartaDestino = primeraCartaMonton(montonAuxiliar);
+			} else {
+				cartaDestino = null;
 			}
-			else if(cartaCogida.tag.Equals("monton1")){
-				cartaCogida.transform.position = primerMonton;
+			if(sePuedeMontar(cartaCogida, cartaDestino) && montonAuxiliar != null && cartaDestino != null){
+				cartaCogida.transform.position = new Vector3 (cartaDestino.transform.position.x, 
+				                                              cartaDestino.transform.position.y - 0.25f, 
+				                                              cartaDestino.transform.position.z - 1);
+				queMontonHay(mouse2dPos).Add(cartaCogida);
+				montones[montonOrigen].Remove(cartaCogida);
+				cartaCogida.tag = "monton" + (montonDestino + 1);
+				if(montones[montonOrigen].Count - 1 >= 0){
+					montones[montonOrigen][montones[montonOrigen].Count - 1].tag = "dorsoMonton" + (montonOrigen + 1);
+				}
+				cartas.Remove(cartaCogida);
+				if(paloCarta(cartaCogida) == "Treboles"){
+					treboles[numeroCarta(cartaCogida)] = false;
+					montonTreboles.Remove(cartaCogida);
+				} else if (paloCarta(cartaCogida) == "Picas"){
+					picas[numeroCarta(cartaCogida)] = false;
+					montonPicas.Remove(cartaCogida);
+				} else if (paloCarta(cartaCogida) == "Diamantes"){
+					diamantes[numeroCarta(cartaCogida)] = false;
+					montonDiamantes.Remove(cartaCogida);
+				} else {
+					corazones[numeroCarta(cartaCogida)] = false;
+					montonCorazones.Remove(cartaCogida);
+				}
 				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton2")){
-				cartaCogida.transform.position = new Vector3(segundoMonton.x, 
-				                                             segundoMonton.y - 0.25f * (montones[1].Count - 1),
-				                                             -montones[1].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton3")){
-				cartaCogida.transform.position = new Vector3(tercerMonton.x, 
-				                                             tercerMonton.y - 0.25f * (montones[2].Count - 1),
-				                                             -montones[2].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton4")){
-				cartaCogida.transform.position = new Vector3 (cuartoMonton.x,
-				                                              cuartoMonton.y - 0.25f * (montones[3].Count - 1),
-				                                              -montones[3].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton5")){
-				cartaCogida.transform.position = new Vector3 (quintoMonton.x, 
-				                                              quintoMonton.y - 0.25f * (montones[4].Count - 1),
-				                                              -montones[4].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton6")){
-				cartaCogida.transform.position = new Vector3 (sextoMonton.x, 
-				                                              quintoMonton.y - 0.25f * (montones[5].Count - 1),
-				                                              -montones[5].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("monton7")){
-				cartaCogida.transform.position = new Vector3 (septimoMonton.x, 
-				                                              septimoMonton.y - 0.25f * (montones[6].Count - 1),
-				                                              -montones[6].Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("montonPicas")){
-				cartaCogida.transform.position = new Vector3 (posicionMazo.x + 4f, 
-				                                              posicionMazo.y, 
-				                                              -montonPicas.Count + 1);
-				cartaCogida = null;
-			}
-			else if(cartaCogida.tag.Equals("montonTreboles")){
-				cartaCogida.transform.position = new Vector3 (posicionMazo.x + 6f, 
-				                                              posicionMazo.y, 
-				                                              -montonTreboles.Count + 1);
-				cartaCogida = null;
-			}
 
-			else if(cartaCogida.tag.Equals("montonCorazones")){
-				cartaCogida.transform.position = new Vector3 (posicionMazo.x + 8f, 
-				                                              posicionMazo.y, 
-				                                              -montonCorazones.Count + 1);
-				cartaCogida = null;
-			}
+			} else {
 
-			else if(cartaCogida.tag.Equals("montonDiamantes")){
-				cartaCogida.transform.position = new Vector3 (posicionMazo.x + 10f, 
-				                                              posicionMazo.y, 
-				                                              -montonDiamantes.Count + 1);
-				cartaCogida = null;
-			}
+				if(cartaCogida.tag.Equals("carta")){
+					cartaCogida.transform.position = new Vector3(posicionMazo.x, posicionMazo.y, zMazo);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton1")){
+					cartaCogida.transform.position = primerMonton;
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton2")){
+					cartaCogida.transform.position = new Vector3(segundoMonton.x, 
+					                                             segundoMonton.y - 0.25f * (montones[1].Count - 1),
+					                                             -montones[1].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton3")){
+					cartaCogida.transform.position = new Vector3(tercerMonton.x, 
+					                                             tercerMonton.y - 0.25f * (montones[2].Count - 1),
+					                                             -montones[2].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton4")){
+					cartaCogida.transform.position = new Vector3 (cuartoMonton.x,
+					                                              cuartoMonton.y - 0.25f * (montones[3].Count - 1),
+					                                              -montones[3].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton5")){
+					cartaCogida.transform.position = new Vector3 (quintoMonton.x, 
+					                                              quintoMonton.y - 0.25f * (montones[4].Count - 1),
+					                                              -montones[4].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton6")){
+					cartaCogida.transform.position = new Vector3 (sextoMonton.x, 
+					                                              quintoMonton.y - 0.25f * (montones[5].Count - 1),
+					                                              -montones[5].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("monton7")){
+					cartaCogida.transform.position = new Vector3 (septimoMonton.x, 
+					                                              septimoMonton.y - 0.25f * (montones[6].Count - 1),
+					                                              -montones[6].Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("montonPicas")){
+					cartaCogida.transform.position = new Vector3 (posicionMazo.x + 4f, 
+					                                              posicionMazo.y, 
+					                                              -montonPicas.Count + 1);
+					cartaCogida = null;
+				}
+				else if(cartaCogida.tag.Equals("montonTreboles")){
+					cartaCogida.transform.position = new Vector3 (posicionMazo.x + 6f, 
+					                                              posicionMazo.y, 
+					                                              -montonTreboles.Count + 1);
+					cartaCogida = null;
+				}
 
+				else if(cartaCogida.tag.Equals("montonCorazones")){
+					cartaCogida.transform.position = new Vector3 (posicionMazo.x + 8f, 
+					                                              posicionMazo.y, 
+					                                              -montonCorazones.Count + 1);
+					cartaCogida = null;
+				}
+
+				else if(cartaCogida.tag.Equals("montonDiamantes")){
+					cartaCogida.transform.position = new Vector3 (posicionMazo.x + 10f, 
+					                                              posicionMazo.y, 
+					                                              -montonDiamantes.Count + 1);
+					cartaCogida = null;
+				}
+			
+			}
 
 		}
 	}
@@ -560,7 +610,9 @@ public class MouseManager : MonoBehaviour {
 		for (int i = 0; i < 7; i++) {
 			montones[i].Remove(carta);	
 			if(sePuedePulsar(i)){
-				montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				if(montones[i].Count - 1 >= 0){
+					montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				}
 			}
 		}
 
@@ -576,7 +628,9 @@ public class MouseManager : MonoBehaviour {
 		for (int i = 0; i < 7; i++) {
 			montones[i].Remove(carta);
 			if(sePuedePulsar(i)){
-				montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				if(montones[i].Count - 1 >= 0){
+					montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				}
 			}
 		}
 		
@@ -592,7 +646,9 @@ public class MouseManager : MonoBehaviour {
 		for (int i = 0; i < 7; i++) {
 			montones[i].Remove(carta);
 			if(sePuedePulsar(i)){
-				montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				if(montones[i].Count - 1 >= 0){
+					montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				}
 			}
 		}
 		
@@ -608,14 +664,15 @@ public class MouseManager : MonoBehaviour {
 		for (int i = 0; i < 7; i++) {
 			montones[i].Remove(carta);
 			if(sePuedePulsar(i)){
-				montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				if(montones[i].Count - 1 >= 0){
+					montones[i][montones[i].Count - 1].tag = "dorsoMonton" + (i + 1);
+				}
 			}
 		}
 		
 	}
 
 	void vueltaMonton(GameObject carta, int monton){
-		Debug.Log (spritesMontones [monton].Count);
 		carta.GetComponent<SpriteRenderer> ().sprite = spritesMontones[monton][spritesMontones[monton].Count - 1];
 		carta.name = carta.GetComponent<SpriteRenderer> ().sprite.name;
 		carta.tag = "monton" + (monton + 1);
@@ -630,5 +687,99 @@ public class MouseManager : MonoBehaviour {
 			} 		
 		}
 		return true;
+	}
+
+	List<GameObject> queMontonHay(Vector2 posicion){
+		for (int i = 0; i < posicionMontones.Length; i++) {
+
+			if(Mathf.Round(posicion.x) == posicionMontones[i].x){
+				montonDestino = i;
+				return montones[i];
+			}	
+		}
+		return null;
+	}
+
+	GameObject primeraCartaMonton(List<GameObject> montonCartas){
+		return (montonCartas[montonCartas.Count - 1]);
+	}
+
+	bool sePuedeMontar(GameObject cartaOrigen, GameObject cartaDestino){
+		if (cartaDestino != null && cartaOrigen != null) {
+			if(colorCarta(cartaOrigen) == colorCarta(cartaDestino)){
+				return false;
+			} else {
+				if((numeroCarta(cartaOrigen) + 1) == numeroCarta(cartaDestino)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	string colorCarta(GameObject carta){
+	
+		for (int i = 0; i < cartasNegras.Length; i++) {
+			if(carta.name == cartasNegras[i].name){
+				return "Negra";
+			} 
+		}
+		return "Roja";
+	}
+
+	int numeroCarta(GameObject carta){
+		if (carta.name.Contains ("A")) {
+			return 1;		
+		} else if (carta.name.Contains ("2")) {
+			return 2;	
+		} else if (carta.name.Contains ("3")) {
+			return 3;	
+		} else if (carta.name.Contains ("4")) {
+			return 4;	
+		} else if (carta.name.Contains ("5")) {
+			return 5;	
+		} else if (carta.name.Contains ("6")) {
+			return 6;	
+		} else if (carta.name.Contains ("7")) {
+			return 7;	
+		} else if (carta.name.Contains ("8")) {
+			return 8;	
+		} else if (carta.name.Contains ("9")) {
+			return 9;	
+		} else if (carta.name.Contains ("10")) {
+			return 10;	
+		} else if (carta.name.Contains ("J")) {
+			return 11;	
+		} else if (carta.name.Contains ("Q")) {
+			return 12;	
+		} else if (carta.name.Contains ("K")) {
+			return 13;	
+		} else {
+			return -1;
+		}
+	}
+
+	string paloCarta(GameObject carta){
+		
+		for (int i = 0; i < cartasNegras.Length; i++) {
+			if(carta.name == cartasNegras[i].name){
+				if(i < 13 ){
+					return "Treboles";
+				} else {
+					return "Picas";
+				}
+			} 
+		}
+
+		for (int i = 0; i < cartasRojas.Length; i++) {
+			if(carta.name == cartasRojas[i].name){
+				if(i < 13 ){
+					return "Diamantes";
+				} else {
+					return "Corazones";
+				}
+			} 
+		}
+		return "-1";
 	}
 }
