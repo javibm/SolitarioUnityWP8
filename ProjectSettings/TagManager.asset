@@ -9,11 +9,23 @@ TagManager:
   - monton1
   - monton2
   - monton3
-  - dorsoMonton
+  - dorsoMonton1
   - monton4
   - monton5
   - monton6
   - monton7
+  - montonPicas
+  - montonTreboles
+  - montonCorazones
+  - montonRombos
+  - dorsoMonton2
+  - dorsoMonton3
+  - dorsoMonton4
+  - dorsoMonton5
+  - dorsoMonton6
+  - dorsoMonton7
+  - dorsoMonton
+  - montonDiamantes
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
